@@ -19,8 +19,9 @@ class Category {
     private Long id;
     private String name;
     private String description;
+    private String photoURL;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     private List<Recipe> recipes;
 
     public Category() {

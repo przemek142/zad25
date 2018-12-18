@@ -7,32 +7,46 @@
 <body>
 
 <div th:replace="fragments :: navbar">navbar</div>
-<div th:replace="fragments :: title(subtitle='Wszyskie zwierzaki')">title</div>
+<div th:replace="fragments :: title(subtitle=${cat.getName()}, description=${cat.getDescription()}, photoUrl=${cat.getPhotoURL()})">
+    title
+</div>
 
 
-<!--<form th:action="@{/wszystkieZwierzaki}" method="get">-->
-    <!--<div class="row">-->
-        <!--<div class="col-auto my-1">-->
-            <!--<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="cat">-->
-                <!--<option th:each="option : ${cat}" th:text="${option}"></option>-->
-            <!--</select>-->
-        <!--</div>-->
-        <!--<div class="col-auto my-1">-->
-            <!--<button type="submit" class="btn btn-primary">Filtruj Zwierzaki</button>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</form>-->
-<!--<br>-->
+<form th:action="@{/wszystkiePrzepisy}" method="get">
+    <div class="row">
+        <div class="col-auto my-1">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="cat">
+                <option value="0">Wszystkie</option>
+                <option th:each="option : ${listaKategorii}" th:text="${option.getName()}"
+                        th:value="${option.getId()}"></option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2" name="likes">
+                <option value="0" >Likes > 0</option>
+                <option value="10">Likes > 10</option>
+                <option value="50">Likes > 50</option>
+                <option value="80">Likes > 80</option>
+                <option value="100">Likes > 100</option>
+
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Filtruj przepisy</button>
+        </div>
+    </div>
+</form>
+<br>
 
 <div class="container-fluid">
     <div class="row">
 
         <div class="col-3" th:each="przepis : ${lista}">
-            <!--<a th:href="|/singleAnimal?UID=${prz()}|">-->
-                <!--<img th:src="${przepis()}" class="img-fluid">-->
-            <!--</a>-->
+            <a th:href="|/idPrzepisu/${przepis.getId()}|">
+                <img th:src="${przepis.photoURL}" class="img-fluid">
+            </a>
             <div class="text-center">
-                <h3 th:utext="${przepis.getName()}">zwierzak</h3>
+                <h3 th:utext="${przepis.getName()}">przepis</h3>
             </div>
         </div>
 

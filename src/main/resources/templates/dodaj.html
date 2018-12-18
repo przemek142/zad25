@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title>Brak strony</title>
+</head>
+<body>
+
+<div th:replace="fragments :: navbar">navbar</div>
+<div th:replace="fragments :: title(subtitle=${cat.getName()}, description=${cat.getDescription()}, photoUrl=${cat.getPhotoURL()})">
+    title
+</div>
+
+<div class="container">
+    <form th:object="${recipe}" th:action="@{/edytujPrzepis}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label for="name">nazwa przepisu</label>
+            <input th:field="*{name}" type="text" class="form-control" id="name" aria-describedby="name"
+                   placeholder="nazwa przepisu">
+        </div>
+
+        <div class="form-group">
+            <label for="kategorie">Kategorie</label>
+
+            <select multiple class="form-control" id="kategorie" th:field="*{categories}">
+                <option th:each="cat2 : ${listaKategorii}" th:text="${cat2.name}" th:value="${cat2.id}" >
+
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="przepis">Receptura</label>
+            <textarea th:field="*{description}" class="form-control" id="przepis" rows="8"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="url">URL zdjęcia</label>
+            <input th:field="*{photoURL}" type="text" class="form-control" id="url" aria-describedby="url"
+                   placeholder="nazwa przepisu">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+<div th:replace="fragments :: footer">footer</div>
+</body>
+</html>

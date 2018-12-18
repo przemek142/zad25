@@ -36,9 +36,8 @@
                         Menu
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" th:href="@{/}">Pokaż zwierzaki</a>
-                        <a class="dropdown-item" th:href="@{/dodaj}">Dodaj zwierzaka</a>
-                        <a class="dropdown-item" th:href="@{/killLovelyCreature}">Uśpij zwierzaka</a>
+                        <a class="dropdown-item" th:href="@{/}">Pokaż przepisy</a>
+                        <a class="dropdown-item" th:href="@{/edytujPrzepis}">Dodaj przepis</a>
                     </div>
                 </li>
             </ul>
@@ -55,9 +54,15 @@
     </footer>
 </div>
 
-<div th:fragment="title (subtitle)">
+<div th:fragment="title (subtitle, description, photoUrl)">
     <div class="jumbotron text-center">
-        <h1>Schronisko</h1>
-        <p th:text="${subtitle}"></p>
+        <div class="column">
+            <img th:src="@{${photoUrl}}" class="img-responsive center-block" height="100" />
+        </div>
+        <div class="column">
+            <h1>Książka z przepisami</h1>
+            <p th:text="${subtitle}"></p>
+            <p th:text="${description}"></p>
+        </div>
     </div>
 </div>
