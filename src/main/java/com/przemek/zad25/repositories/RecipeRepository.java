@@ -13,7 +13,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     List<Recipe> findRecipesByCategories(Category cat);
 
-    List<Recipe> findRecipesByCategoriesAndLikesGreaterThan(Category cat, Long likes);
-    List<Recipe> findRecipesByLikesGreaterThan(Long likes);
+    List<Recipe> findRecipesByCategoriesAndLikesGreaterThanEqual(Category cat, Long likes);
+    List<Recipe> findRecipesByLikesGreaterThanEqual(Long likes);
 
 }

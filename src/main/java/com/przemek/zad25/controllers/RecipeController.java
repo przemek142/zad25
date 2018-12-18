@@ -33,7 +33,7 @@ public class RecipeController {
     @GetMapping("/wszystkiePrzepisy")
     public String wszystkiePrzepisy(
             @RequestParam(value = "cat", required = false, defaultValue = "0") long cat,
-            @RequestParam(value = "likes", required = false, defaultValue = "-1") long likes,
+            @RequestParam(value = "likes", required = false, defaultValue = "0") long likes,
             Model model) {
         System.out.println(cat);
         model.addAttribute("listaKategorii", categoryRepository.findAll());
@@ -44,10 +44,10 @@ public class RecipeController {
             category.setPhotoURL("http://s3.party.pl/newsy/ksiazka-kucharska-294176-quiz.jpg");
             category.setName("Wszystkie przepisy");
             model.addAttribute("cat", category);
-            model.addAttribute("lista", recipeRepository.findRecipesByLikesGreaterThan(likes));
+            model.addAttribute("lista", recipeRepository.findRecipesByLikesGreaterThanEqual(likes));
         } else {
             model.addAttribute("lista",
-                    recipeRepository.findRecipesByCategoriesAndLikesGreaterThan(categoryRepository.findById(cat).get(),likes));
+                    recipeRepository.findRecipesByCategoriesAndLikesGreaterThanEqual(categoryRepository.findById(cat).get(),likes));
             model.addAttribute("cat", categoryRepository.findById(cat).get());
         }
         return "allRecipies";
