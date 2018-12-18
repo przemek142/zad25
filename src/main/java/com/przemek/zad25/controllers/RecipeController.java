@@ -33,7 +33,7 @@ public class RecipeController {
     @GetMapping("/wszystkiePrzepisy")
     public String wszystkiePrzepisy(
             @RequestParam(value = "cat", required = false, defaultValue = "0") long cat,
-            @RequestParam(value = "likes", required = false, defaultValue = "0") long likes,
+            @RequestParam(value = "likes", required = false, defaultValue = "-1") long likes,
             Model model) {
         System.out.println(cat);
         model.addAttribute("listaKategorii", categoryRepository.findAll());
@@ -118,6 +118,8 @@ public class RecipeController {
     @PostMapping("/edytujPrzepis")
     public String edytujPrzepisZapis(Model model, Recipe recipe) {
 
+        if (recipe.getLikes() == null)
+            recipe.setLikes(0L);
         recipeRepository.save(recipe);
 
         return "redirect:/wszystkiePrzepisy";
